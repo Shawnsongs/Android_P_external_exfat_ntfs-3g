@@ -1,0 +1,42 @@
+diff --git a/vendor/nxp-opensource/kernel_imx/arch/arm64/configs/android_f202_p_car_defconfig b/vendor/nxp-opensource/kernel_imx/arch/arm64/configs/android_f202_p_car_defconfig
+index 0841989..28523fe 100755
+--- a/vendor/nxp-opensource/kernel_imx/arch/arm64/configs/android_f202_p_car_defconfig
++++ b/vendor/nxp-opensource/kernel_imx/arch/arm64/configs/android_f202_p_car_defconfig
+@@ -512,6 +512,9 @@ CONFIG_FUSE_FS=y
+ CONFIG_CUSE=y
+ CONFIG_OVERLAY_FS=y
+ CONFIG_VFAT_FS=y
++CONFIG_EXFAT_FS=y
++CONFIG_EXFAT_DEFAULT_CODEPAGE=437
++CONFIG_EXFAT_DEFAULT_IOCHARSET="utf8"
+ CONFIG_TMPFS_POSIX_ACL=y
+ CONFIG_HUGETLBFS=y
+ CONFIG_SDCARD_FS=y
+diff --git a/vendor/nxp-opensource/kernel_imx/fs/Kconfig b/vendor/nxp-opensource/kernel_imx/fs/Kconfig
+old mode 100644
+new mode 100755
+index 121fabf..75002af
+--- a/vendor/nxp-opensource/kernel_imx/fs/Kconfig
++++ b/vendor/nxp-opensource/kernel_imx/fs/Kconfig
+@@ -126,6 +126,7 @@ menu "DOS/FAT/NT Filesystems"
+ 
+ source "fs/fat/Kconfig"
+ source "fs/ntfs/Kconfig"
++source "fs/exfat/Kconfig"
+ 
+ endmenu
+ endif # BLOCK
+diff --git a/vendor/nxp-opensource/kernel_imx/fs/Makefile b/vendor/nxp-opensource/kernel_imx/fs/Makefile
+old mode 100644
+new mode 100755
+index 1e34e4b..254cb71
+--- a/vendor/nxp-opensource/kernel_imx/fs/Makefile
++++ b/vendor/nxp-opensource/kernel_imx/fs/Makefile
+@@ -79,6 +79,7 @@ obj-$(CONFIG_HUGETLBFS)		+= hugetlbfs/
+ obj-$(CONFIG_CODA_FS)		+= coda/
+ obj-$(CONFIG_MINIX_FS)		+= minix/
+ obj-$(CONFIG_FAT_FS)		+= fat/
++obj-$(CONFIG_EXFAT_FS)          += exfat/
+ obj-$(CONFIG_BFS_FS)		+= bfs/
+ obj-$(CONFIG_ISO9660_FS)	+= isofs/
+ obj-$(CONFIG_HFSPLUS_FS)	+= hfsplus/ # Before hfs to find wrapped HFS+
